@@ -8,7 +8,7 @@
     </inertial>
   </link>
   <joint name="floating_base_joint" type="floating">
-    <origin rpy="-1.57 3.14 0" xyz="0 0 0"/>
+    <origin rpy="-1.57 3.14 3.14" xyz="0 0 0"/>
     <parent link="base"/>
     <child link="torso_link"/>
   </joint>
@@ -38,7 +38,7 @@
     <origin xyz="-1.0603759e-05 0.018089562050771318 0.18749980999999996" rpy="3.1415926071795868 -2.220446049250313e-15 3.1415926071795868"/>
     <parent link="torso_link"/>
     <child link="right_shoulder_pitch_link"/>
-    <limit effort="80" velocity="5" lower="0" upper="3.1415927"/>
+    <limit effort="20" velocity="5" lower="0" upper="3.1415927"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_shoulder_pitch_link">
@@ -67,7 +67,7 @@
     <origin xyz="-1.0603759e-05 0.018089564 -0.18750019" rpy="0.0 0.0 -3.1415926071795863"/>
     <parent link="torso_link"/>
     <child link="left_shoulder_pitch_link"/>
-    <limit effort="80" velocity="5" lower="0" upper="3.1415927"/>
+    <limit effort="20" velocity="5" lower="0" upper="3.1415927"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_shoulder_pitch_link">
@@ -96,7 +96,7 @@
     <origin xyz="-0.008010608503738428 -0.43201043179234816 0.0877000068648673" rpy="-3.1415925071795874 4.641020678874952e-08 -3.1415926535897913"/>
     <parent link="torso_link"/>
     <child link="left_hip_pitch_link"/>
-    <limit effort="80" velocity="5" lower="-1.5707963" upper="1.5707963"/>
+    <limit effort="40" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="left_hip_pitch_link">
@@ -125,7 +125,7 @@
     <origin xyz="-0.008010600340183055 -0.4320104467591277 -0.08819999313513187" rpy="9.99999991702083e-08 4.641020678874952e-08 -3.1415926535897913"/>
     <parent link="torso_link"/>
     <child link="right_hip_pitch_link"/>
-    <limit effort="80" velocity="5" lower="-1.5707963" upper="1.5707963"/>
+    <limit effort="40" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="right_hip_pitch_link">
@@ -154,7 +154,7 @@
     <origin xyz="0.022511964 5.627838501275855e-05 -0.06749999993301277" rpy="1.5707963 0.0 1.5707963"/>
     <parent link="right_shoulder_pitch_link"/>
     <child link="right_shoulder_roll_link"/>
-    <limit effort="80" velocity="5" lower="-0.47996554" upper="3.6302848"/>
+    <limit effort="20" velocity="5" lower="-0.47996554" upper="3.6302848"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="right_shoulder_roll_link">
@@ -183,7 +183,7 @@
     <origin xyz="0.022511964 -5.627838501275855e-05 -0.06749999993301277" rpy="1.5707963999999996 -2.220446049250313e-16 -1.5707963000000003"/>
     <parent link="left_shoulder_pitch_link"/>
     <child link="left_shoulder_roll_link"/>
-    <limit effort="80" velocity="5" lower="-0.47996554" upper="3.6302848"/>
+    <limit effort="20" velocity="5" lower="-0.47996554" upper="3.6302848"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_shoulder_roll_link">
@@ -212,7 +212,7 @@
     <origin xyz="0.02649999999999997 -1.5165911463888016e-09 -0.06950000151659115" rpy="-1.5707963 0.0 1.5707963"/>
     <parent link="left_hip_pitch_link"/>
     <child link="left_hip_roll_link"/>
-    <limit effort="80" velocity="5" lower="-0.34906585" upper="3.1852259"/>
+    <limit effort="20" velocity="5" lower="-0.34906585" upper="3.1852259"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_hip_roll_link">
@@ -241,7 +241,7 @@
     <origin xyz="0.02649999999999997 -1.5165911463888016e-09 -0.06950000151659115" rpy="1.5707963 -4.641020634466031e-08 -1.5707963535897922"/>
     <parent link="right_hip_pitch_link"/>
     <child link="right_hip_roll_link"/>
-    <limit effort="80" velocity="5" lower="-0.34906585" upper="3.1852259"/>
+    <limit effort="20" velocity="5" lower="-0.34906585" upper="3.1852259"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_hip_roll_link">
@@ -270,7 +270,7 @@
     <origin xyz="-0.13949999999999996 -1.4619215099879723e-09 -0.02349999915596076" rpy="-1.5707963535897926 -2.6794894969484062e-08 -1.5707962803846895"/>
     <parent link="right_shoulder_roll_link"/>
     <child link="right_shoulder_yaw_link"/>
-    <limit effort="80" velocity="5" lower="-1.5707963" upper="1.5707963"/>
+    <limit effort="20" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_shoulder_yaw_link">
@@ -299,7 +299,7 @@
     <origin xyz="-0.13949999999999999 0.0 0.022499999155960758" rpy="-3.1415926071795863 1.5707963 0.0"/>
     <parent link="left_shoulder_roll_link"/>
     <child link="left_shoulder_yaw_link"/>
-    <limit effort="80" velocity="5" lower="-1.5707963" upper="1.5707963"/>
+    <limit effort="20" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="left_shoulder_yaw_link">
@@ -328,7 +328,7 @@
     <origin xyz="-0.15649999999999997 0.0 0.027499998483408852" rpy="-0.0 1.5707963 0.0"/>
     <parent link="left_hip_roll_link"/>
     <child link="left_hip_yaw_link"/>
-    <limit effort="80" velocity="5" lower="-1.5707963" upper="1.5707963"/>
+    <limit effort="20" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_hip_yaw_link">
@@ -357,7 +357,7 @@
     <origin xyz="-0.15649999999999997 0.0 0.027499998483408852" rpy="-3.1415926535897922 -1.5707962732050302 0.0"/>
     <parent link="right_hip_roll_link"/>
     <child link="right_hip_yaw_link"/>
-    <limit effort="80" velocity="5" lower="-1.5707963" upper="1.5707963"/>
+    <limit effort="20" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_hip_yaw_link">
@@ -386,7 +386,7 @@
     <origin xyz="-0.026000000000000002 0.0 -0.09799999977224338" rpy="-3.1415926071795863 -1.5707963 0.0"/>
     <parent link="right_shoulder_yaw_link"/>
     <child link="right_elbow_link"/>
-    <limit effort="80" velocity="5" lower="-2.0943951" upper="2.0943951"/>
+    <limit effort="20" velocity="5" lower="-2.0943951" upper="2.0943951"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_elbow_link">
@@ -415,7 +415,7 @@
     <origin xyz="2.2775662092411332e-10 -0.026000000000000002 0.0975" rpy="-1.5707963071795865 1.5707963 0.0"/>
     <parent link="left_shoulder_yaw_link"/>
     <child link="left_elbow_link"/>
-    <limit effort="80" velocity="5" lower="-2.0943951" upper="2.0943951"/>
+    <limit effort="20" velocity="5" lower="-2.0943951" upper="2.0943951"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_elbow_link">
@@ -444,7 +444,7 @@
     <origin xyz="0.0 0.0342 -0.14250000009378214" rpy="1.5707963000000003 0.0 0.0"/>
     <parent link="left_hip_yaw_link"/>
     <child link="left_knee_link"/>
-    <limit effort="80" velocity="5" lower="-2.0943951" upper="2.0943951"/>
+    <limit effort="40" velocity="5" lower="-2.0943951" upper="2.0943951"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_knee_link">
@@ -473,7 +473,7 @@
     <origin xyz="0.0 0.0342 -0.14250000009378214" rpy="1.5707963000000003 0.0 0.0"/>
     <parent link="right_hip_yaw_link"/>
     <child link="right_knee_link"/>
-    <limit effort="80" velocity="5" lower="-2.0943951" upper="2.0943951"/>
+    <limit effort="40" velocity="5" lower="-2.0943951" upper="2.0943951"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_knee_link">
@@ -502,7 +502,7 @@
     <origin xyz="-0.18149999999999997 -1.4619215099879723e-09 0.02150000084403924" rpy="-1.5707963535897926 -2.6794894969484062e-08 -1.5707962803846895"/>
     <parent link="right_elbow_link"/>
     <child link="right_hand"/>
-    <limit effort="80" velocity="5" lower="0" upper="6.2831853"/>
+    <limit effort="10" velocity="5" lower="0" upper="6.2831853"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_hand">
@@ -531,7 +531,7 @@
     <origin xyz="-0.18149999999999997 -1.4619215099879723e-09 0.02150000084403924" rpy="-1.5707963535897926 -2.6794894969484062e-08 -1.5707962803846895"/>
     <parent link="left_elbow_link"/>
     <child link="left_hand"/>
-    <limit effort="80" velocity="5" lower="0" upper="6.2831853"/>
+    <limit effort="10" velocity="5" lower="0" upper="6.2831853"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="left_hand">
@@ -560,7 +560,7 @@
     <origin xyz="1.0767167917674625e-08 -0.29999999865410376 0.027200000000000002" rpy="-3.1415926071795868 2.220446049250313e-16 -3.1415926071795868"/>
     <parent link="right_knee_link"/>
     <child link="right_ankle_link"/>
-    <limit effort="80" velocity="5" lower="-0.6981317" upper="0.6981317"/>
+    <limit effort="17" velocity="5" lower="-0.6981317" upper="0.6981317"/>
     <axis xyz="0 0 1"/>
   </joint>
   <link name="right_ankle_link">
@@ -589,7 +589,7 @@
     <origin xyz="0.0 -0.30000000004641003 0.07019999118206069" rpy="9.282041357749903e-08 0.0 0.0"/>
     <parent link="left_knee_link"/>
     <child link="left_ankle_link"/>
-    <limit effort="80" velocity="5" lower="-0.6981317" upper="0.6981317"/>
+    <limit effort="17" velocity="5" lower="-0.6981317" upper="0.6981317"/>
     <axis xyz="0 0 -1"/>
   </joint>
   <link name="left_ankle_link">
