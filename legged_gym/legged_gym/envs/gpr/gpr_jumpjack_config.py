@@ -19,10 +19,12 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
            'left_shoulder_roll_joint' : 0, 
            'left_shoulder_yaw_joint' : 0.,
            'left_elbow_joint'  : 0.,
+           'left_wrist_joint': 0.,
            'right_shoulder_pitch_joint' : 0.,
            'right_shoulder_roll_joint' : 0.0,
            'right_shoulder_yaw_joint' : 0.,
            'right_elbow_joint' : 0.,
+           'right_wrist_joint': 0.,
         }
         
         randomize_upperbody = False
@@ -114,7 +116,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         num_noise = 187
         num_observations = 187
         
-        num_actions = 19
+        num_actions = 20
 
         send_timeouts = False  # full episode rew
         episode_length_s = 10
