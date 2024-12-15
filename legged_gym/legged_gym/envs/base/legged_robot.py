@@ -1120,10 +1120,14 @@ class LeggedRobot(BaseTask):
     
     def get_ee_pos(self):
         # breakpoint()
-        left_foot_pos = self._get_rigid_body_pos("left_ankle_link")
-        right_foot_pos = self._get_rigid_body_pos("right_ankle_link")
-        left_hand_pos = self._get_rigid_body_pos("left_hand")
-        right_hand_pos = self._get_rigid_body_pos("right_hand")
+        left_foot_pos = self._rigid_body_pos[:, self.feet_indices[0] - 1]
+        right_foot_pos = self._rigid_body_pos[:, self.feet_indices[1] - 1]
+        left_hand_pos = self._rigid_body_pos[:, self.hand_indices[0] - 1]
+        right_hand_pos = self._rigid_body_pos[:, self.hand_indices[1] - 1]
+        # left_foot_pos = self._get_rigid_body_pos("left_ankle_link")
+        # right_foot_pos = self._get_rigid_body_pos("right_ankle_link")
+        # left_hand_pos = self._get_rigid_body_pos("left_hand")
+        # right_hand_pos = self._get_rigid_body_pos("right_hand")
         return left_foot_pos, right_foot_pos, left_hand_pos, right_hand_pos
     
     def get_ee_pos_b(self):

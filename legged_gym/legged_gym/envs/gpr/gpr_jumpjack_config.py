@@ -195,7 +195,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         terminate_by_ang_vel = False
         terminate_by_gravity = True
         terminate_by_xy = True
-        terminate_by_hip_yaw = True
+        terminate_by_hip_yaw = False
         
         class termination_scales():
             base_height = 0.1
@@ -277,6 +277,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
 class GPRJumpJackCfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):
         class_name = "PPO_SYM"
+        # class_name = "PPO"
         entropy_coef = 0.001
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
