@@ -214,6 +214,7 @@ class GPRJumpJack(LeggedRobot):
     def symmetric_fn(self, batch_obs, batch_critic_obs, batch_actions):
         assert not self.privileged_obs_buf
         batch_size = batch_obs.shape[0]
+        # breakpoint()
         extend_batch_obs = torch.cat([batch_obs, batch_obs], dim=0)
         extend_batch_critic_obs = torch.cat([batch_critic_obs, batch_critic_obs], dim=0)
         extend_batch_actions = torch.cat([batch_actions, batch_actions], dim=0)
@@ -222,35 +223,35 @@ class GPRJumpJack(LeggedRobot):
         extend_batch_actions[batch_size:, :] = self.symmetric_dof(extend_batch_actions[:batch_size, :])
         
         # left-right symmetric for observations
-        extend_batch_obs[batch_size:, :18] = self.symmetric_dof(extend_batch_obs[:batch_size, :18])
-        extend_batch_obs[batch_size:, 18:36] = self.symmetric_dof(extend_batch_obs[:batch_size, 18:36])
-        extend_batch_obs[batch_size:, 36:37] *= -1. # rotate x
-        extend_batch_obs[batch_size:, 39:40] *= -1. # rotate z
+        extend_batch_obs[batch_size:, :self.num_actions] = self.symmetric_dof(extend_batch_obs[:batch_size, :self.num_actions])
+        extend_batch_obs[batch_size:, self.num_actions:self.num_actions*2] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions:self.num_actions*2])
+        extend_batch_obs[batch_size:, self.num_actions*2:self.num_actions*2+1] *= -1. # rotate x
+        extend_batch_obs[batch_size:, self.num_actions*2+2:self.num_actions*2+3] *= -1. # rotate z
         # 41 lin_vel in x
-        extend_batch_obs[batch_size:, 41:42] *= -1. # change lin vel in y
+        extend_batch_obs[batch_size:, self.num_actions*2+4:self.num_actions*2+5] *= -1. # change lin vel in y
         # 43 lin_vel in z
         # 44 gravity in x
-        extend_batch_obs[batch_size:, 44:45] *= -1. # change gravity in y
+        extend_batch_obs[batch_size:, self.num_actions*2+7:self.num_actions*2+8] *= -1. # change gravity in y
         # 46 gravity in z
         # 47:51 phase
-        extend_batch_obs[batch_size:, 46] = extend_batch_obs[:batch_size, 47].clone()
-        extend_batch_obs[batch_size:, 47] = extend_batch_obs[:batch_size, 46].clone()
-        extend_batch_obs[batch_size:, 48] = extend_batch_obs[:batch_size, 49].clone()
-        extend_batch_obs[batch_size:, 49] = extend_batch_obs[:batch_size, 48].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+9] = extend_batch_obs[:batch_size, self.num_actions*2+10].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+10] = extend_batch_obs[:batch_size, self.num_actions*2+9].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+11] = extend_batch_obs[:batch_size, self.num_actions*2+12].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+12] = extend_batch_obs[:batch_size, self.num_actions*2+11].clone()
         # 51:54 x y yaw
-        extend_batch_obs[batch_size:, 50] *= -1.
-        extend_batch_obs[batch_size:, 51] *= -1.
+        extend_batch_obs[batch_size:, self.num_actions*2+14] *= -1.
+        extend_batch_obs[batch_size:, self.num_actions*2+15] *= -1.
                 
         # symmetric for action    
-        extend_batch_obs[batch_size:, 52:70] = self.symmetric_dof(extend_batch_obs[:batch_size, 52:70])
+        extend_batch_obs[batch_size:, self.num_actions*2+16:self.num_actions*3+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*2+16:self.num_actions*3+16])
         # symmetric for history of joints
-        extend_batch_obs[batch_size:, 52+18:70+18] = self.symmetric_dof(extend_batch_obs[:batch_size, 52+18:70+18])
-        extend_batch_obs[batch_size:, 52+36:70+36] = self.symmetric_dof(extend_batch_obs[:batch_size, 52+36:70+36])
-        extend_batch_obs[batch_size:, 52+54:70+54] = self.symmetric_dof(extend_batch_obs[:batch_size, 52+54:70+54])
-        extend_batch_obs[batch_size:, 52+72:70+72] = self.symmetric_dof(extend_batch_obs[:batch_size, 52+72:70+72])
-        extend_batch_obs[batch_size:, 52+90:70+90] = self.symmetric_dof(extend_batch_obs[:batch_size, 52+90:70+90])
-        # breakpoint()
-        extend_batch_obs[batch_size:, 52+108:70+108] = self.symmetric_dof(extend_batch_obs[:batch_size, 52+108:70+108])
+        extend_batch_obs[batch_size:, self.num_actions*3+16:self.num_actions*4+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*3+16:self.num_actions*4+16])
+        extend_batch_obs[batch_size:, self.num_actions*4+16:self.num_actions*5+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*4+16:self.num_actions*5+16])
+        extend_batch_obs[batch_size:, self.num_actions*5+16:self.num_actions*6+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*5+16:self.num_actions*6+16])
+        extend_batch_obs[batch_size:, self.num_actions*6+16:self.num_actions*7+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*6+16:self.num_actions*7+16])
+        extend_batch_obs[batch_size:, self.num_actions*7+16:self.num_actions*8+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*7+16:self.num_actions*8+16])
+        extend_batch_obs[batch_size:, self.num_actions*8+16:self.num_actions*9+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*8+16:self.num_actions*9+16])
+        # extend_batch_obs[batch_size:, self.num_actions*9+16:self.num_actions*10+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*9+16:self.num_actions*10+16])
         
         # left-right symmetric for critic observations
         extend_batch_critic_obs[batch_size:, :] = extend_batch_obs[batch_size:, :].clone()
@@ -262,7 +263,7 @@ class GPRJumpJack(LeggedRobot):
         base2feet = torch.amax(self.root_states[:, 2:3] - self.foot_height, dim=1)
         height_good = base2feet > 0.65
         
-        left_foot_pos_b, right_foot_pos_b, right_hand_pos_b, left_hand_pos_b = self.get_ee_pos_yawb()
+        left_foot_pos_b, right_foot_pos_b, left_hand_pos_b, right_hand_pos_b = self.get_ee_pos_yawb()
         phase =  self.contact_sequence[torch.arange(self.num_envs), :, self.current_contact_goal[:,0]].float()
         lh_ff = torch.logical_or((phase[:,2]<0.5)*(left_hand_pos_b[:,1]>0.4), 
                                     (phase[:,2]>0.5) * (left_hand_pos_b[:,1]<-0.3))
@@ -351,7 +352,7 @@ class GPRJumpJack(LeggedRobot):
     
     def _reward_hand_y(self):
         phase =  self.contact_sequence[torch.arange(self.num_envs), :, self.current_contact_goal[:,0]].float()
-        left_foot_pos_b, right_foot_pos_b, right_hand_pos_b, left_hand_pos_b = self.get_ee_pos_yawb()
+        left_foot_pos_b, right_foot_pos_b, left_hand_pos_b, right_hand_pos_b = self.get_ee_pos_yawb()
         # breakpoint()
         left_spread = left_hand_pos_b[:,1] * (phase[:,2]<0.5) - left_hand_pos_b[:,1] * (phase[:,2]>0.5)
         right_spread = - right_hand_pos_b[:,1] * (phase[:,3]<0.5) + right_hand_pos_b[:,1] * (phase[:,3]>0.5)

@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot name="gpr">
-  <link name="base">
-    <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.001"/>
-      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
-    </inertial>
-  </link>
+  <link name="world"></link>
   <joint name="floating_base_joint" type="floating">
     <origin rpy="-1.57 3.14 0" xyz="0 0 0"/>
-    <parent link="base"/>
+    <parent link="world"/>
     <child link="torso_link"/>
   </joint>
   <link name="torso_link">

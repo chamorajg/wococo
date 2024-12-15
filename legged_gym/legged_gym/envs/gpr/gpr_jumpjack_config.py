@@ -203,8 +203,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             base_ang_vel = 5.0
             gravity_x = 0.7
             gravity_y = 0.7
-            min_knee_distance = 0.12
-            min_feet_distance = 0.12
+            min_knee_distance = 0.17
+            min_feet_distance = 0.17
             global_xy = 0.8
             hip_yaw_sum = 0.8
 
@@ -276,8 +276,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         
 class GPRJumpJackCfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):
-        # class_name = "PPO_SYM"
-        class_name = "PPO"
+        class_name = "PPO_SYM"
+        # class_name = "PPO"
         entropy_coef = 0.001
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
