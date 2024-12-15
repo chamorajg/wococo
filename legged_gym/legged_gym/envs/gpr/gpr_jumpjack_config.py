@@ -195,7 +195,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         terminate_by_ang_vel = False
         terminate_by_gravity = True
         terminate_by_xy = True
-        terminate_by_hip_yaw = False
+        terminate_by_hip_yaw = True
         
         class termination_scales():
             base_height = 0.1
@@ -210,22 +210,22 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
 
     class rewards( LeggedRobotCfg.rewards ):
         class scales:
-            on_box = 10. # contact reward
-            prev_fulfill = 10. # stage reward
+            on_box = 20. # contact reward
+            prev_fulfill = 20. # stage reward
             
             # hand_x = 1.0
-            hand_y = 5.0
+            hand_y = 10.0
             # hand_z = -1.0
-            foot_goal = 10.0
+            foot_goal = 20.0
 
             curiosity = 5000.
 
             # some are not necessary at all
             vel_x = -5. 
             # yaw = -10.0
-            rot_z = -1.0
+            rot_z = -0.1
             torques = -0.5
-            torque_limits = -500
+            torque_limits = -100
             dof_acc = -5e-6
             dof_vel = -0.003
             dof_vel_limits = -20.0
