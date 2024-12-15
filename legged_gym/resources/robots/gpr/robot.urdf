@@ -28,14 +28,14 @@
       <origin xyz="-0.009887620467425699 -0.16327683151976047 8.549441372045392e-06" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="right_shoulder_pitch_joint" type="revolute">
+  <joint name="left_shoulder_pitch_joint" type="revolute">
     <origin xyz="-1.0603759e-05 0.018089562050771318 0.18749980999999996" rpy="3.1415926071795868 -2.220446049250313e-15 3.1415926071795868"/>
     <parent link="torso_link"/>
-    <child link="right_shoulder_pitch_link"/>
+    <child link="left_shoulder_pitch_link"/>
     <limit effort="15" velocity="5" lower="0" upper="3.1415927"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="right_shoulder_pitch_link">
+  <link name="left_shoulder_pitch_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -57,14 +57,14 @@
       <origin xyz="-0.002143291631555541 5.49830379711586e-05 -0.06646243607358847" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="left_shoulder_pitch_joint" type="revolute">
+  <joint name="right_shoulder_pitch_joint" type="revolute">
     <origin xyz="-1.0603759e-05 0.018089564 -0.18750019" rpy="0.0 0.0 -3.1415926071795863"/>
     <parent link="torso_link"/>
-    <child link="left_shoulder_pitch_link"/>
+    <child link="right_shoulder_pitch_link"/>
     <limit effort="15" velocity="5" lower="0" upper="3.1415927"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="left_shoulder_pitch_link">
+  <link name="right_shoulder_pitch_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -144,14 +144,14 @@
       <origin xyz="-0.003746324486178213 -5.30704079226868e-10 -0.06812512159159122" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="right_shoulder_roll_joint" type="revolute">
+  <joint name="left_shoulder_roll_joint" type="revolute">
     <origin xyz="0.022511964 5.627838501275855e-05 -0.06749999993301277" rpy="1.5707963 0.0 1.5707963"/>
-    <parent link="right_shoulder_pitch_link"/>
-    <child link="right_shoulder_roll_link"/>
+    <parent link="left_shoulder_pitch_link"/>
+    <child link="left_shoulder_roll_link"/>
     <limit effort="10" velocity="5" lower="-0.47996554" upper="3.6302848"/>
     <axis xyz="0 0 -1"/>
   </joint>
-  <link name="right_shoulder_roll_link">
+  <link name="left_shoulder_roll_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -173,14 +173,14 @@
       <origin xyz="-0.10491673239989494 0.003102558814221409 -0.019599933577279183" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="left_shoulder_roll_joint" type="revolute">
+  <joint name="right_shoulder_roll_joint" type="revolute">
     <origin xyz="0.022511964 -5.627838501275855e-05 -0.06749999993301277" rpy="1.5707963999999996 -2.220446049250313e-16 -1.5707963000000003"/>
-    <parent link="left_shoulder_pitch_link"/>
-    <child link="left_shoulder_roll_link"/>
+    <parent link="right_shoulder_pitch_link"/>
+    <child link="right_shoulder_roll_link"/>
     <limit effort="10" velocity="5" lower="-0.47996554" upper="3.6302848"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="left_shoulder_roll_link">
+  <link name="right_shoulder_roll_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -260,14 +260,14 @@
       <origin xyz="-0.11629451715520467 -0.0031434770887895404 0.02541103395361007" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="right_shoulder_yaw_joint" type="revolute">
+  <joint name="left_shoulder_yaw_joint" type="revolute">
     <origin xyz="-0.13949999999999996 -1.4619215099879723e-09 -0.02349999915596076" rpy="-1.5707963535897926 -2.6794894969484062e-08 -1.5707962803846895"/>
-    <parent link="right_shoulder_roll_link"/>
-    <child link="right_shoulder_yaw_link"/>
+    <parent link="left_shoulder_roll_link"/>
+    <child link="left_shoulder_yaw_link"/>
     <limit effort="10" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="right_shoulder_yaw_link">
+  <link name="left_shoulder_yaw_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -289,14 +289,14 @@
       <origin xyz="-0.0063350323524262436 0.0 -0.09042107492219607" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="left_shoulder_yaw_joint" type="revolute">
+  <joint name="right_shoulder_yaw_joint" type="revolute">
     <origin xyz="-0.13949999999999999 0.0 0.022499999155960758" rpy="-3.1415926071795863 1.5707963 0.0"/>
-    <parent link="left_shoulder_roll_link"/>
-    <child link="left_shoulder_yaw_link"/>
+    <parent link="right_shoulder_roll_link"/>
+    <child link="right_shoulder_yaw_link"/>
     <limit effort="10" velocity="5" lower="-1.5707963" upper="1.5707963"/>
     <axis xyz="0 0 -1"/>
   </joint>
-  <link name="left_shoulder_yaw_link">
+  <link name="right_shoulder_yaw_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -376,14 +376,14 @@
       <origin xyz="4.0855477721508534e-07 0.0005316844118462806 -0.13730778343676694" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="right_elbow_joint" type="revolute">
+  <joint name="left_elbow_joint" type="revolute">
     <origin xyz="-0.026000000000000002 0.0 -0.09799999977224338" rpy="-3.1415926071795863 -1.5707963 0.0"/>
-    <parent link="right_shoulder_yaw_link"/>
-    <child link="right_elbow_link"/>
+    <parent link="left_shoulder_yaw_link"/>
+    <child link="left_elbow_link"/>
     <limit effort="10" velocity="5" lower="-2.0943951" upper="2.0943951"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="right_elbow_link">
+  <link name="left_elbow_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -405,14 +405,14 @@
       <origin xyz="-0.14008673576280925 -3.715266367753274e-10 0.019422482836149137" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="left_elbow_joint" type="revolute">
+  <joint name="right_elbow_joint" type="revolute">
     <origin xyz="2.2775662092411332e-10 -0.026000000000000002 0.0975" rpy="-1.5707963071795865 1.5707963 0.0"/>
-    <parent link="left_shoulder_yaw_link"/>
-    <child link="left_elbow_link"/>
+    <parent link="right_shoulder_yaw_link"/>
+    <child link="right_elbow_link"/>
     <limit effort="10" velocity="5" lower="-2.0943951" upper="2.0943951"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="left_elbow_link">
+  <link name="right_elbow_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -492,14 +492,14 @@
       <origin xyz="-0.0010330286803835712 -0.12547979367732118 0.036671195513248635" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="right_wrist_joint" type="fixed" dont_collapse="true">
+  <joint name="left_wrist_joint" type="fixed" dont_collapse="true">
     <origin xyz="-0.18149999999999997 -1.4619215099879723e-09 0.02150000084403924" rpy="-1.5707963535897926 -2.6794894969484062e-08 -1.5707962803846895"/>
-    <parent link="right_elbow_link"/>
-    <child link="right_hand"/>
+    <parent link="left_elbow_link"/>
+    <child link="left_hand"/>
     <limit effort="10" velocity="5" lower="0" upper="6.2831853"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="right_hand">
+  <link name="left_hand">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -521,14 +521,14 @@
       <origin xyz="0.000708716962895658 0.0005107853118896094 -0.07640603184938456" rpy="0 0 0"/>
     </inertial>
   </link>
-  <joint name="left_wrist_joint" type="fixed" dont_collapse="true">
+  <joint name="right_wrist_joint" type="fixed" dont_collapse="true">
     <origin xyz="-0.18149999999999997 -1.4619215099879723e-09 0.02150000084403924" rpy="-1.5707963535897926 -2.6794894969484062e-08 -1.5707962803846895"/>
-    <parent link="left_elbow_link"/>
-    <child link="left_hand"/>
+    <parent link="right_elbow_link"/>
+    <child link="right_hand"/>
     <limit effort="10" velocity="5" lower="0" upper="6.2831853"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <link name="left_hand">
+  <link name="right_hand">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
