@@ -426,6 +426,7 @@ class LeggedRobot(BaseTask):
                 self.friction_coeffs = friction_buckets[bucket_ids]
 
             for s in range(len(self._ground_friction_values[0])):
+                # breakpoint()
                 if s < len(self._ground_friction_values[0])-1: # temperory fix for gpr, not for h1
                     props[s].friction = self.friction_coeffs[env_id]
                 # import pdb; pdb.set_trace()

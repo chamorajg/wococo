@@ -198,10 +198,10 @@ class H1JumpJack(LeggedRobot):
         #  'left_shoulder_pitch_joint', 'left_shoulder_roll_joint', 'left_shoulder_yaw_joint', 'left_elbow_joint', 'left_wrist_joint', 
         #  'right_hip_pitch_joint', 'right_hip_roll_joint', 'right_hip_yaw_joint', 'right_knee_joint', 'right_ankle_joint', 
         #  'right_shoulder_pitch_joint', 'right_shoulder_roll_joint', 'right_shoulder_yaw_joint', 'right_elbow_joint', 'right_wrist_joint']
-        LEFT_POS_INDICES = [0, 3, 4, 5, 8, 9] # ['left_hip_pitch_joint', 'left_knee_joint', 'left_ankle_joint','left_shoulder_pitch_joint','left_elbow_joint']
+        LEFT_POS_INDICES = [0, 3, 4, 5, 8] # ['left_hip_pitch_joint', 'left_knee_joint', 'left_ankle_joint','left_shoulder_pitch_joint','left_elbow_joint']
         LEFT_NEG_INDICES = [1, 2, 6, 7] # ['left_hip_yaw_joint', 'left_hip_roll_joint', 'left_shoulder_roll_joint','left_shoulder_yaw_joint']
-        RIGHT_POS_INDICES = [10, 13, 14, 15, 18, 19]
-        RIGHT_NEG_INDICES = [11, 12, 16, 17]
+        RIGHT_POS_INDICES = [9, 12, 13, 14, 17]
+        RIGHT_NEG_INDICES = [10, 11, 15, 16]
         new_dof = prev_dof.clone()
         # new_dof[:, 10] *= -1.
         new_dof[:, LEFT_POS_INDICES] = prev_dof[:, RIGHT_POS_INDICES].clone()

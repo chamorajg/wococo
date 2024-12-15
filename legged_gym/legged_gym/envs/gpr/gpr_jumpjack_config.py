@@ -112,10 +112,10 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
 
     class env(LeggedRobotCfg.env):
         num_envs = 6144
-        num_noise = 187 + 9
-        num_observations = 187 + 9
+        num_noise = 187 - 9
+        num_observations = 187 - 9
         
-        num_actions = 20
+        num_actions = 18
 
         send_timeouts = False  # full episode rew
         episode_length_s = 10
@@ -144,7 +144,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
                      'ankle': 17,
                      'shoulder': 40,
                      'elbow':30,
-                     'wrist': 30
+                    #  'wrist': 30
                      }  # [N*m/rad]
         damping = {  'hip_yaw': 5,
                      'hip_roll': 5,
@@ -153,7 +153,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
                      'ankle': 5,
                      'shoulder': 2,
                      "elbow":2,
-                     'wrist': 2
+                    #  'wrist': 2
                      }  # [N*m/rad]  # [N*m*s/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
@@ -177,7 +177,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
                                        "knee",
                                        "torso",
                                        ]
-        self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
+        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
   
         density = 0.001
