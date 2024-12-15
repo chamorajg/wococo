@@ -6,15 +6,14 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         default_joint_angles = { # = target angles [rad] when action = 0.0
            'left_hip_yaw_joint' : 0. ,   
            'left_hip_roll_joint' : 0,               
-           'left_hip_pitch_joint' : -0.4,         
-           'left_knee_joint' : 0.8,       
-           'left_ankle_joint' : -0.4,     
+           'left_hip_pitch_joint' : -0.23,         
+           'left_knee_joint' : -0.441,       
+           'left_ankle_joint' : -0.195,     
            'right_hip_yaw_joint' : 0., 
            'right_hip_roll_joint' : 0, 
-           'right_hip_pitch_joint' : -0.4,                                       
-           'right_knee_joint' : 0.8,                                             
-           'right_ankle_joint' : -0.4,                                     
-           'torso_joint' : 0., 
+           'right_hip_pitch_joint' : 0.23,                                       
+           'right_knee_joint' : 0.441,                                             
+           'right_ankle_joint' : 0.195,                                     
            'left_shoulder_pitch_joint' : 0., 
            'left_shoulder_roll_joint' : 0, 
            'left_shoulder_yaw_joint' : 0.,
@@ -113,8 +112,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
 
     class env(LeggedRobotCfg.env):
         num_envs = 6144
-        num_noise = 187
-        num_observations = 187
+        num_noise = 187 + 9
+        num_observations = 187 + 9
         
         num_actions = 20
 
@@ -138,23 +137,23 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         # PD Drive parameters:
         control_type = 'P'
           # PD Drive parameters:
-        stiffness = {'hip_yaw': 200,
-                     'hip_roll': 200,
-                     'hip_pitch': 200,
-                     'knee': 300,
-                     'ankle': 40,
-                     'torso': 300,
-                     'shoulder': 100,
-                     "elbow":100,
+        stiffness = {'hip_yaw': 60,
+                     'hip_roll': 60,
+                     'hip_pitch': 120,
+                     'knee': 120,
+                     'ankle': 17,
+                     'shoulder': 40,
+                     'elbow':30,
+                     'wrist': 30
                      }  # [N*m/rad]
         damping = {  'hip_yaw': 5,
                      'hip_roll': 5,
-                     'hip_pitch': 5,
-                     'knee': 6,
-                     'ankle': 2,
-                     'torso': 6,
+                     'hip_pitch': 10,
+                     'knee': 10,
+                     'ankle': 5,
                      'shoulder': 2,
                      "elbow":2,
+                     'wrist': 2
                      }  # [N*m/rad]  # [N*m*s/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
@@ -173,7 +172,6 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         penalize_contacts_on = []
         terminate_after_contacts_on = [
                                        "shoulder", 
-                                    #    "elbow",
                                        "hip_roll", 
                                        "hip_pitch", 
                                        "knee",

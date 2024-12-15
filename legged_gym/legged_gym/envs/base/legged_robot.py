@@ -426,7 +426,8 @@ class LeggedRobot(BaseTask):
                 self.friction_coeffs = friction_buckets[bucket_ids]
 
             for s in range(len(self._ground_friction_values[0])):
-                props[s].friction = self.friction_coeffs[env_id]
+                if s < len(self._ground_friction_values[0])-1: # temperory fix for gpr, not for h1
+                    props[s].friction = self.friction_coeffs[env_id]
                 # import pdb; pdb.set_trace()
                 self._ground_friction_values[env_id, s] += self.friction_coeffs[env_id].squeeze()
         return props
@@ -896,6 +897,7 @@ class LeggedRobot(BaseTask):
         # import pdb; pdb.set_trace()
         self.num_bodies = len(body_names)
         self.num_dofs = len(self.dof_names)
+        # import pdb; pdb.set_trace()
         feet_names = [s for s in body_names if self.cfg.asset.foot_name in s]
         penalized_contact_names = []
         for name in self.cfg.asset.penalize_contacts_on:

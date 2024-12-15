@@ -158,16 +158,16 @@ class H1JumpJack(LeggedRobot):
         #todo: deal with 4 ee
         self.phase =  self.contact_sequence[torch.arange(self.num_envs), :, self.current_contact_goal[:,0]].float()
         self.obs_buf = torch.cat((  
-                                    (self.dof_pos - self.dof_bias) * self.obs_scales.dof_pos, # 19
-                                    self.dof_vel * self.obs_scales.dof_vel, # 19
+                                    (self.dof_pos - self.dof_bias) * self.obs_scales.dof_pos, # 20
+                                    self.dof_vel * self.obs_scales.dof_vel, # 20
                                     self.base_ang_vel  * self.obs_scales.ang_vel, # 3
                                     self.base_lin_vel * self.obs_scales.lin_vel, # 3
                                     self.projected_gravity, # 3
                                     self.phase, # 4
                                     self.global_obs(), # 3
-                                    self.actions, # 19,
-                                    self.joint_hist[:,1,:], # 57
-                                    self.joint_hist[:,2,:], # 57
+                                    self.actions, # 20,
+                                    self.joint_hist[:,1,:], # 60
+                                    self.joint_hist[:,2,:], # 60
                                     ),dim=-1)
                     
         obs_buf_denoise = self.obs_buf.clone()
@@ -191,13 +191,19 @@ class H1JumpJack(LeggedRobot):
         
         
     def symmetric_dof(self, prev_dof):
-        assert prev_dof.shape[1] == 19, print(prev_dof.shape[1])
-        LEFT_POS_INDICES = [2, 3, 4, 11, 14]
-        LEFT_NEG_INDICES = [0, 1, 12, 13]
-        RIGHT_POS_INDICES = [7, 8, 9, 15, 18]
-        RIGHT_NEG_INDICES = [5, 6, 16, 17]
+        # breakpoint()
+        # temporary fix for gpr, h1 is 19
+        assert prev_dof.shape[1] == self.num_actions, print(prev_dof.shape[1])
+        # ['left_hip_pitch_joint', 'left_hip_roll_joint', 'left_hip_yaw_joint', 'left_knee_joint', 'left_ankle_joint', 
+        #  'left_shoulder_pitch_joint', 'left_shoulder_roll_joint', 'left_shoulder_yaw_joint', 'left_elbow_joint', 'left_wrist_joint', 
+        #  'right_hip_pitch_joint', 'right_hip_roll_joint', 'right_hip_yaw_joint', 'right_knee_joint', 'right_ankle_joint', 
+        #  'right_shoulder_pitch_joint', 'right_shoulder_roll_joint', 'right_shoulder_yaw_joint', 'right_elbow_joint', 'right_wrist_joint']
+        LEFT_POS_INDICES = [0, 3, 4, 5, 8, 9] # ['left_hip_pitch_joint', 'left_knee_joint', 'left_ankle_joint','left_shoulder_pitch_joint','left_elbow_joint']
+        LEFT_NEG_INDICES = [1, 2, 6, 7] # ['left_hip_yaw_joint', 'left_hip_roll_joint', 'left_shoulder_roll_joint','left_shoulder_yaw_joint']
+        RIGHT_POS_INDICES = [10, 13, 14, 15, 18, 19]
+        RIGHT_NEG_INDICES = [11, 12, 16, 17]
         new_dof = prev_dof.clone()
-        new_dof[:, 10] *= -1.
+        # new_dof[:, 10] *= -1.
         new_dof[:, LEFT_POS_INDICES] = prev_dof[:, RIGHT_POS_INDICES].clone()
         new_dof[:, RIGHT_POS_INDICES] = prev_dof[:, LEFT_POS_INDICES].clone()
         new_dof[:, LEFT_NEG_INDICES] = prev_dof[:, RIGHT_NEG_INDICES].clone() * (-1.)
@@ -216,34 +222,36 @@ class H1JumpJack(LeggedRobot):
         extend_batch_actions[batch_size:, :] = self.symmetric_dof(extend_batch_actions[:batch_size, :])
         
         # left-right symmetric for observations
-        extend_batch_obs[batch_size:, :19] = self.symmetric_dof(extend_batch_obs[:batch_size, :19])
-        extend_batch_obs[batch_size:, 19:38] = self.symmetric_dof(extend_batch_obs[:batch_size, 19:38])
-        extend_batch_obs[batch_size:, 38:39] *= -1. # rotate x
-        extend_batch_obs[batch_size:, 40:41] *= -1. # rotate z
+        extend_batch_obs[batch_size:, :self.num_actions] = self.symmetric_dof(extend_batch_obs[:batch_size, :self.num_actions])
+        extend_batch_obs[batch_size:, self.num_actions:self.num_actions*2] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions:self.num_actions*2])
+        extend_batch_obs[batch_size:, self.num_actions*2:self.num_actions*2+1] *= -1. # rotate x
+        extend_batch_obs[batch_size:, self.num_actions*2+1:self.num_actions*2+2] *= -1. # rotate z
         # 41 lin_vel in x
-        extend_batch_obs[batch_size:, 42:43] *= -1. # change lin vel in y
+        extend_batch_obs[batch_size:, self.num_actions*2+4:self.num_actions*2+5] *= -1. # change lin vel in y
         # 43 lin_vel in z
         # 44 gravity in x
-        extend_batch_obs[batch_size:, 45:46] *= -1. # change gravity in y
+        extend_batch_obs[batch_size:, self.num_actions*2+7:self.num_actions*2+8] *= -1. # change gravity in y
         # 46 gravity in z
         # 47:51 phase
-        extend_batch_obs[batch_size:, 47] = extend_batch_obs[:batch_size, 48].clone()
-        extend_batch_obs[batch_size:, 48] = extend_batch_obs[:batch_size, 47].clone()
-        extend_batch_obs[batch_size:, 49] = extend_batch_obs[:batch_size, 50].clone()
-        extend_batch_obs[batch_size:, 50] = extend_batch_obs[:batch_size, 49].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+9] = extend_batch_obs[:batch_size, self.num_actions*2+10].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+10] = extend_batch_obs[:batch_size, self.num_actions*2+11].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+11] = extend_batch_obs[:batch_size, self.num_actions*2+12].clone()
+        extend_batch_obs[batch_size:, self.num_actions*2+12] = extend_batch_obs[:batch_size, self.num_actions*2+11].clone()
         # 51:54 x y yaw
-        extend_batch_obs[batch_size:, 52] *= -1.
-        extend_batch_obs[batch_size:, 53] *= -1.
+        extend_batch_obs[batch_size:, self.num_actions*2+14] *= -1.
+        extend_batch_obs[batch_size:, self.num_actions*2+15] *= -1.
                 
         # symmetric for action    
-        extend_batch_obs[batch_size:, 54:73] = self.symmetric_dof(extend_batch_obs[:batch_size, 54:73])
+        extend_batch_obs[batch_size:, self.num_actions*2+16:self.num_actions*3+16] = self.symmetric_dof(extend_batch_obs[:batch_size, self.num_actions*2+16:self.num_actions*3+16])
         # symmetric for history of joints
-        extend_batch_obs[batch_size:, 54+19:73+19] = self.symmetric_dof(extend_batch_obs[:batch_size, 54+19:73+19])
-        extend_batch_obs[batch_size:, 54+38:73+38] = self.symmetric_dof(extend_batch_obs[:batch_size, 54+38:73+38])
-        extend_batch_obs[batch_size:, 54+57:73+57] = self.symmetric_dof(extend_batch_obs[:batch_size, 54+57:73+57])
-        extend_batch_obs[batch_size:, 54+76:73+76] = self.symmetric_dof(extend_batch_obs[:batch_size, 54+76:73+76])
-        extend_batch_obs[batch_size:, 54+95:73+95] = self.symmetric_dof(extend_batch_obs[:batch_size, 54+95:73+95])
-        extend_batch_obs[batch_size:, 54+114:73+114] = self.symmetric_dof(extend_batch_obs[:batch_size, 54+114:73+114])
+        start = self.num_actions*2+16
+        end = self.num_actions*3+16
+        extend_batch_obs[batch_size:, start+self.num_actions:end+self.num_actions] = self.symmetric_dof(extend_batch_obs[:batch_size, start+self.num_actions:end+self.num_actions])
+        extend_batch_obs[batch_size:, start+self.num_actions*2:end+self.num_actions*2] = self.symmetric_dof(extend_batch_obs[:batch_size, start+self.num_actions*2:end+self.num_actions*2])
+        extend_batch_obs[batch_size:, start+self.num_actions*3:end+self.num_actions*3] = self.symmetric_dof(extend_batch_obs[:batch_size, start+self.num_actions*3:end+self.num_actions*3])
+        extend_batch_obs[batch_size:, start+self.num_actions*4:end+self.num_actions*4] = self.symmetric_dof(extend_batch_obs[:batch_size, start+self.num_actions*4:end+self.num_actions*4])
+        extend_batch_obs[batch_size:, start+self.num_actions*5:end+self.num_actions*5] = self.symmetric_dof(extend_batch_obs[:batch_size, start+self.num_actions*5:end+self.num_actions*5])
+        extend_batch_obs[batch_size:, start+self.num_actions*6:end+self.num_actions*6] = self.symmetric_dof(extend_batch_obs[:batch_size, start+self.num_actions*6:end+self.num_actions*6])
         
         # left-right symmetric for critic observations
         extend_batch_critic_obs[batch_size:, :] = extend_batch_obs[batch_size:, :].clone()
