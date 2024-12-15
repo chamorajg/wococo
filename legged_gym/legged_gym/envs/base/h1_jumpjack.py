@@ -105,7 +105,7 @@ class H1JumpJack(LeggedRobot):
             return
         self.contact_sequence[env_ids] = torch.randint_like(self.contact_sequence[env_ids], low=0, high=2)
         # YMCA needs sync foot hand and fixed transition: 00/(01or10or00)/00/...
-        self.contact_sequence[env_ids,0:2,1::2] = 0
+        self.contact_sequence[env_ids,0:2,1::2] = 0 # # n_env, n_ee, l_seq
         self.contact_sequence[env_ids,1,0::2] &= (~self.contact_sequence[env_ids,0,0::2]) # no 11
         self.contact_sequence[env_ids,2:] = self.contact_sequence[env_ids,:2].clone() # sync hand
 

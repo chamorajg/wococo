@@ -110,7 +110,7 @@ class H1JumpJackCfg( LeggedRobotCfg ):
         num_cols = 10 # number of terrain cols (types)
 
     class env(LeggedRobotCfg.env):
-        num_envs = 4096
+        num_envs = 6144
         num_noise = 187
         num_observations = 187
         
@@ -210,8 +210,8 @@ class H1JumpJackCfg( LeggedRobotCfg ):
 
     class rewards( LeggedRobotCfg.rewards ):
         class scales:
-            on_box = 10.
-            prev_fulfill = 5.
+            on_box = 10. # contact reward
+            prev_fulfill = 5. # stage reward
             
             # hand_x = 1.0
             hand_y = 5.0
