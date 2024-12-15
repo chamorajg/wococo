@@ -33,8 +33,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         randomize_dof_bias = False
         max_dof_bias = 0.08
         
-        randomize_yaw = True
-        init_yaw_range = [-0.5,0.5]
+        randomize_yaw = False
+        init_yaw_range = [-0.1,0.1]
 
         randomize_ctrl_delay = False
         ctrl_delay_step_range = [0, 1] # integer max real delay is 90ms
@@ -44,7 +44,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         max_push_vel_xy = 0.25
         
         randomize_friction = True
-        friction_range = [-0.6, 1.2]
+        friction_range = [-0.8, 1.2]
         
         randomize_base_com = False
         class base_com_range: #kg
@@ -139,8 +139,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
           # PD Drive parameters:
         stiffness = {'hip_yaw': 60,
                      'hip_roll': 60,
-                     'hip_pitch': 120,
-                     'knee': 120,
+                     'hip_pitch': 80,
+                     'knee': 80,
                      'ankle': 17,
                      'shoulder': 40,
                      'elbow':30,
@@ -148,8 +148,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
                      }  # [N*m/rad]
         damping = {  'hip_yaw': 5,
                      'hip_roll': 5,
-                     'hip_pitch': 10,
-                     'knee': 10,
+                     'hip_pitch': 7,
+                     'knee': 7,
                      'ankle': 5,
                      'shoulder': 2,
                      "elbow":2,
@@ -203,15 +203,15 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             base_ang_vel = 5.0
             gravity_x = 0.7
             gravity_y = 0.7
-            min_knee_distance = 0.17
-            min_feet_distance = 0.17
+            min_knee_distance = 0.12
+            min_feet_distance = 0.12
             global_xy = 0.8
             hip_yaw_sum = 0.8
 
     class rewards( LeggedRobotCfg.rewards ):
         class scales:
             on_box = 10. # contact reward
-            prev_fulfill = 5. # stage reward
+            prev_fulfill = 10. # stage reward
             
             # hand_x = 1.0
             hand_y = 5.0
@@ -223,7 +223,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             # some are not necessary at all
             vel_x = -5. 
             # yaw = -10.0
-            rot_z = -0.1
+            rot_z = -1.0
             torques = -0.5
             torque_limits = -500
             dof_acc = -5e-6
@@ -255,8 +255,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             
     class task:
         x_range = 0.15
-        y_side = 0.15
-        y_stance = 0.3
+        y_side = 0.13
+        y_stance = 0.26
         y_tol = 0.1
         num_seq = 10
     class normalization:
