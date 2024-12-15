@@ -345,6 +345,7 @@ class H1JumpJack(LeggedRobot):
     def _reward_hand_y(self):
         phase =  self.contact_sequence[torch.arange(self.num_envs), :, self.current_contact_goal[:,0]].float()
         left_foot_pos_b, right_foot_pos_b, left_hand_pos_b, right_hand_pos_b = self.get_ee_pos_yawb()
+        breakpoint()
         left_spread = left_hand_pos_b[:,1] * (phase[:,2]<0.5) - left_hand_pos_b[:,1] * (phase[:,2]>0.5)
         right_spread = - right_hand_pos_b[:,1] * (phase[:,3]<0.5) + right_hand_pos_b[:,1] * (phase[:,3]>0.5)
         return left_spread + right_spread
@@ -355,6 +356,7 @@ class H1JumpJack(LeggedRobot):
     
     def _reward_foot_goal(self):
         left_foot_pos, right_foot_pos, left_hand_pos, right_hand_pos = self.get_ee_pos()
+        # breakpoint()
         left_foot_pos_xy = left_foot_pos[:, :2] - self.env_origins[:,:2]
         right_foot_pos_xy = right_foot_pos[:, :2] - self.env_origins[:,:2]
         phase_foot = self.contact_sequence[torch.arange(self.num_envs), :2, self.current_contact_goal[:,0]].float()

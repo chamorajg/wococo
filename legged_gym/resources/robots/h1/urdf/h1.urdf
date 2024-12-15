@@ -742,7 +742,7 @@ Stephen Brawner (brawner@gmail.com)
     </visual>
     <collision>
       <origin
-        xyz="0 0.02 0"ankle_link
+        xyz="0 0.02 0"
         rpy="0 0 0" />
       <geometry>
         <sphere radius="0.01"/>

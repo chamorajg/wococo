@@ -6,14 +6,14 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         default_joint_angles = { # = target angles [rad] when action = 0.0
            'left_hip_yaw_joint' : 0. ,   
            'left_hip_roll_joint' : 0,               
-           'left_hip_pitch_joint' : -0.23,         
-           'left_knee_joint' : -0.441,       
-           'left_ankle_joint' : -0.195,     
+           'left_hip_pitch_joint' : 0,         
+           'left_knee_joint' : 0,       
+           'left_ankle_joint' : 0,     
            'right_hip_yaw_joint' : 0., 
            'right_hip_roll_joint' : 0, 
-           'right_hip_pitch_joint' : 0.23,                                       
-           'right_knee_joint' : 0.441,                                             
-           'right_ankle_joint' : 0.195,                                     
+           'right_hip_pitch_joint' : 0,                                       
+           'right_knee_joint' : 0,                                             
+           'right_ankle_joint' : 0,                                     
            'left_shoulder_pitch_joint' : 0., 
            'left_shoulder_roll_joint' : 0, 
            'left_shoulder_yaw_joint' : 0.,
@@ -139,8 +139,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
           # PD Drive parameters:
         stiffness = {'hip_yaw': 60,
                      'hip_roll': 60,
-                     'hip_pitch': 80,
-                     'knee': 80,
+                     'hip_pitch': 120,
+                     'knee': 120,
                      'ankle': 17,
                      'shoulder': 40,
                      'elbow':30,
@@ -148,8 +148,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
                      }  # [N*m/rad]
         damping = {  'hip_yaw': 5,
                      'hip_roll': 5,
-                     'hip_pitch': 7,
-                     'knee': 7,
+                     'hip_pitch': 10,
+                     'knee': 10,
                      'ankle': 5,
                      'shoulder': 2,
                      "elbow":2,
@@ -254,7 +254,7 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             obs_ub = [0.5 , 0.5,1.2] + [0.5, 0.5, 0.5, 1.0] + [ 0.5, 0.5, 0.5, 1.0, 1.0, 1.0] + [0.5, 0.5,0.25]*2 + [ 0.8, 1.,2.0]*2 + [1.]*4
             
     class task:
-        x_range = 0.15
+        x_range = 0.13
         y_side = 0.13
         y_stance = 0.26
         y_tol = 0.1
@@ -276,8 +276,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         
 class GPRJumpJackCfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):
-        class_name = "PPO_SYM"
-        # class_name = "PPO"
+        # class_name = "PPO_SYM"
+        class_name = "PPO"
         entropy_coef = 0.001
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''

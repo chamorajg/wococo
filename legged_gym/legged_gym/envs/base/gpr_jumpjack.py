@@ -262,7 +262,7 @@ class GPRJumpJack(LeggedRobot):
         base2feet = torch.amax(self.root_states[:, 2:3] - self.foot_height, dim=1)
         height_good = base2feet > 0.65
         
-        left_foot_pos_b, right_foot_pos_b, left_hand_pos_b, right_hand_pos_b = self.get_ee_pos_yawb()
+        left_foot_pos_b, right_foot_pos_b, right_hand_pos_b, left_hand_pos_b = self.get_ee_pos_yawb()
         phase =  self.contact_sequence[torch.arange(self.num_envs), :, self.current_contact_goal[:,0]].float()
         lh_ff = torch.logical_or((phase[:,2]<0.5)*(left_hand_pos_b[:,1]>0.4), 
                                     (phase[:,2]>0.5) * (left_hand_pos_b[:,1]<-0.3))
@@ -351,7 +351,8 @@ class GPRJumpJack(LeggedRobot):
     
     def _reward_hand_y(self):
         phase =  self.contact_sequence[torch.arange(self.num_envs), :, self.current_contact_goal[:,0]].float()
-        left_foot_pos_b, right_foot_pos_b, left_hand_pos_b, right_hand_pos_b = self.get_ee_pos_yawb()
+        left_foot_pos_b, right_foot_pos_b, right_hand_pos_b, left_hand_pos_b = self.get_ee_pos_yawb()
+        # breakpoint()
         left_spread = left_hand_pos_b[:,1] * (phase[:,2]<0.5) - left_hand_pos_b[:,1] * (phase[:,2]>0.5)
         right_spread = - right_hand_pos_b[:,1] * (phase[:,3]<0.5) + right_hand_pos_b[:,1] * (phase[:,3]>0.5)
         return left_spread + right_spread
