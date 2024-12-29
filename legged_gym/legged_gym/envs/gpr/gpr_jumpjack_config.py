@@ -1,62 +1,72 @@
-from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobotCfgPPO
+from legged_gym.envs.base.legged_robot_config import (
+    LeggedRobotCfg,
+    LeggedRobotCfgPPO,
+)
 
-class GPRJumpJackCfg( LeggedRobotCfg ):
-    class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.05] # x,y,z [m]
-        default_joint_angles = { # = target angles [rad] when action = 0.0
-           'left_hip_yaw_joint' : 0. ,   
-           'left_hip_roll_joint' : 0,               
-           'left_hip_pitch_joint' : -0.23,         
-           'left_knee_joint' : -0.441,       
-           'left_ankle_joint' : -0.195,     
-           'right_hip_yaw_joint' : 0., 
-           'right_hip_roll_joint' : 0, 
-           'right_hip_pitch_joint' : 0.23,                                       
-           'right_knee_joint' : 0.441,                                             
-           'right_ankle_joint' : 0.195,                                     
-           'left_shoulder_pitch_joint' : 0., 
-           'left_shoulder_roll_joint' : 0, 
-           'left_shoulder_yaw_joint' : 0.,
-           'left_elbow_joint'  : 0.,
-           'left_wrist_joint': 0.,
-           'right_shoulder_pitch_joint' : 0.,
-           'right_shoulder_roll_joint' : 0.0,
-           'right_shoulder_yaw_joint' : 0.,
-           'right_elbow_joint' : 0.,
-           'right_wrist_joint': 0.,
+
+class GPRJumpJackCfg(LeggedRobotCfg):
+    class init_state(LeggedRobotCfg.init_state):
+        pos = [0.0, 0.0, 1.05]  # x,y,z [m]
+        default_joint_angles = {  # = target angles [rad] when action = 0.0
+            "left_hip_yaw_joint": 0.0,
+            "left_hip_roll_joint": 0,
+            "left_hip_pitch_joint": -0.23,
+            "left_knee_joint": -0.441,
+            "left_ankle_joint": -0.195,
+            "right_hip_yaw_joint": 0.0,
+            "right_hip_roll_joint": 0,
+            "right_hip_pitch_joint": 0.23,
+            "right_knee_joint": 0.441,
+            "right_ankle_joint": 0.195,
+            "left_shoulder_pitch_joint": 0.0,
+            "left_shoulder_roll_joint": 0,
+            "left_shoulder_yaw_joint": 0.0,
+            "left_elbow_joint": 0.0,
+            "left_wrist_joint": 0.0,
+            "right_shoulder_pitch_joint": 0.0,
+            "right_shoulder_roll_joint": 0.0,
+            "right_shoulder_yaw_joint": 0.0,
+            "right_elbow_joint": 0.0,
+            "right_wrist_joint": 0.0,
         }
-        
+
         randomize_upperbody = False
-    
-    class domain_rand ( LeggedRobotCfg.domain_rand ):
-        
+
+    class domain_rand(LeggedRobotCfg.domain_rand):
+
         randomize_dof_bias = False
         max_dof_bias = 0.08
-        
+
         randomize_yaw = False
-        init_yaw_range = [-0.1,0.1]
+        init_yaw_range = [-0.1, 0.1]
 
         randomize_ctrl_delay = False
-        ctrl_delay_step_range = [0, 1] # integer max real delay is 90ms
+        ctrl_delay_step_range = [0, 1]  # integer max real delay is 90ms
 
         push_robots = False
         push_interval_s = 5
         max_push_vel_xy = 0.25
-        
+
         randomize_friction = True
         friction_range = [-0.8, 1.2]
-        
+
         randomize_base_com = False
-        class base_com_range: #kg
+
+        class base_com_range:  # kg
             x = [-0.06, 0.06]
             y = [-0.1, 0.1]
             z = [-0.15, 0.15]
 
         randomize_link_mass = False
-        link_mass_range = [0.9, 1.2] # *factor
+        link_mass_range = [0.9, 1.2]  # *factor
         randomize_link_body_names = [
-            'left_hip_yaw_link', 'left_hip_roll_link', 'left_hip_pitch_link', 
-            'right_hip_yaw_link', 'right_hip_roll_link', 'right_hip_pitch_link',  'torso_link',
+            "left_hip_yaw_link",
+            "left_hip_roll_link",
+            "left_hip_pitch_link",
+            "right_hip_yaw_link",
+            "right_hip_roll_link",
+            "right_hip_pitch_link",
+            "torso_link",
         ]
 
         randomize_pd_gain = False
@@ -68,13 +78,13 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         randomize_rfi_lim = False
         rfi_lim_range = [0.5, 1.5]
 
-        randomize_base_mass = False # replaced by randomize_link_mass
+        randomize_base_mass = False  # replaced by randomize_link_mass
         # added_mass_range = [-5., 10.]
-        
 
-    class noise ( LeggedRobotCfg.noise ):
+    class noise(LeggedRobotCfg.noise):
         add_noise = False
-        noise_level = 1.0 # scales other values
+        noise_level = 1.0  # scales other values
+
         class noise_scales:
             base_z = 0.05
             dof_pos = 0.01
@@ -87,73 +97,80 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             last_action = 0.0
             box_3dpos = 0.02
             contact_vel = 0.0
-                
+
         class drift:
             x = 0.03
             y = 0.05
             z = 0.01
-            
-    class terrain ( LeggedRobotCfg.terrain ):
-        mesh_type = 'plane' # "heightfield" # none, plane, heightfield or trimesh
+
+    class terrain(LeggedRobotCfg.terrain):
+        mesh_type = (
+            "plane"  # "heightfield" # none, plane, heightfield or trimesh
+        )
         # mesh_type = 'trimesh' # "heightfield" # none, plane, heightfield or trimesh
-        horizontal_scale = 0.1 # [m]
-        vertical_scale = 0.005 # [m]
+        horizontal_scale = 0.1  # [m]
+        vertical_scale = 0.005  # [m]
         curriculum = False
-        margin = 10 # [m]
+        margin = 10  # [m]
         # curriculum = False
         static_friction = 1.0
         dynamic_friction = 1.0
-        restitution = 0.
+        restitution = 0.0
         # rough terrain only:
-        terrain_length = 8.
+        terrain_length = 8.0
         terrain_width = 8
-        num_rows = 10 # number of terrain rows (levels)
-        num_cols = 10 # number of terrain cols (types)
+        num_rows = 10  # number of terrain rows (levels)
+        num_cols = 10  # number of terrain cols (types)
 
     class env(LeggedRobotCfg.env):
         num_envs = 6144
         num_noise = 187 - 9
         num_observations = 187 - 9
-        
+
         num_actions = 18
 
         send_timeouts = False  # full episode rew
         episode_length_s = 10
         period_contact = [0.4, 0.8]
-      
-    class commands ( LeggedRobotCfg.commands ):
+
+    class commands(LeggedRobotCfg.commands):
         curriculum = False
-        max_curriculum = 0.
-        num_commands = 4 # default: lin_vel_x, lin_vel_y, ang_vel_yaw, heading (in heading mode ang_vel_yaw is recomputed from heading error)
-        resampling_time = 10. # time before command are changed[s]
-        heading_command = False # if true: compute ang vel command from heading error
+        max_curriculum = 0.0
+        num_commands = 4  # default: lin_vel_x, lin_vel_y, ang_vel_yaw, heading (in heading mode ang_vel_yaw is recomputed from heading error)
+        resampling_time = 10.0  # time before command are changed[s]
+        heading_command = (
+            False  # if true: compute ang vel command from heading error
+        )
+
         class ranges:
-            lin_vel_x = [.0, .0] # min max [m/s]
-            lin_vel_y = [.0, .0]   # min max [m/s]
-            ang_vel_yaw = [.0, .0]    # min max [rad/s]
-            heading = [.0, .0]
-            
-    class control( LeggedRobotCfg.control ):
+            lin_vel_x = [0.0, 0.0]  # min max [m/s]
+            lin_vel_y = [0.0, 0.0]  # min max [m/s]
+            ang_vel_yaw = [0.0, 0.0]  # min max [rad/s]
+            heading = [0.0, 0.0]
+
+    class control(LeggedRobotCfg.control):
         # PD Drive parameters:
-        control_type = 'P'
-        stiffness = {'hip_yaw': 120,
-                     'hip_roll': 120,
-                     'hip_pitch': 300,
-                     'knee': 300,
-                     'ankle': 40,
-                     'shoulder': 40,
-                     'elbow':40,
-                    #  'wrist': 30
-                     }  # [N*m/rad]
-        damping = {  'hip_yaw': 5,
-                     'hip_roll': 5,
-                     'hip_pitch': 5,
-                     'knee': 5,
-                     'ankle': 5,
-                     'shoulder': 2,
-                     "elbow":2,
-                    #  'wrist': 2
-                     }  # [N*m/rad]  # [N*m*s/rad]
+        control_type = "P"
+        stiffness = {
+            "hip_yaw": 120,
+            "hip_roll": 120,
+            "hip_pitch": 300,
+            "knee": 300,
+            "ankle": 40,
+            "shoulder": 40,
+            "elbow": 40,
+            #  'wrist': 30
+        }  # [N*m/rad]
+        damping = {
+            "hip_yaw": 5,
+            "hip_roll": 5,
+            "hip_pitch": 5,
+            "knee": 5,
+            "ankle": 5,
+            "shoulder": 2,
+            "elbow": 2,
+            #  'wrist': 2
+        }  # [N*m/rad]  # [N*m*s/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
         # decimation: Number of control action updates @ sim DT per policy DT
@@ -164,29 +181,29 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         action_cutfreq = 4.0
         torque_effort_scale = 1.0
 
-    class asset( LeggedRobotCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/gpr/robot.urdf'
+    class asset(LeggedRobotCfg.asset):
+        file = "{LEGGED_GYM_ROOT_DIR}/resources/robots/gpr/robot.urdf"
         name = "h1"
         foot_name = "ankle"
         penalize_contacts_on = []
         terminate_after_contacts_on = [
-                                       "shoulder", 
-                                       "hip_roll", 
-                                       "hip_pitch", 
-                                       "knee",
-                                       "torso",
-                                       ]
-        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
+            "shoulder",
+            "hip_roll",
+            "hip_pitch",
+            "knee",
+            "torso",
+        ]
+        self_collisions = 1  # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
-  
+
         density = 0.001
-        angular_damping = 0.
-        linear_damping = 0.
-        max_angular_velocity = 1000.
-        max_linear_velocity = 1000.
-        armature = 0.
+        angular_damping = 0.0
+        linear_damping = 0.0
+        max_angular_velocity = 1000.0
+        max_linear_velocity = 1000.0
+        armature = 0.0
         thickness = 0.01
-        
+
         terminate_by_knee_distance = True
         terminate_by_feet_distance = True
         terminate_by_low_height = True
@@ -195,8 +212,8 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
         terminate_by_gravity = True
         terminate_by_xy = True
         terminate_by_hip_yaw = False
-        
-        class termination_scales():
+
+        class termination_scales:
             base_height = 0.1
             base_vel = 10.0
             base_ang_vel = 5.0
@@ -207,20 +224,20 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             global_xy = 0.8
             hip_yaw_sum = 0.8
 
-    class rewards( LeggedRobotCfg.rewards ):
+    class rewards(LeggedRobotCfg.rewards):
         class scales:
-            on_box = 10. # contact reward
-            prev_fulfill = 5. # stage reward
-            
+            on_box = 10.0  # contact reward
+            prev_fulfill = 5.0  # stage reward
+
             # hand_x = 1.0
             hand_y = 5.0
             # hand_z = -1.0
             foot_goal = 10.0
 
-            curiosity = 5000.
+            curiosity = 5000.0
 
             # some are not necessary at all
-            vel_x = -5. 
+            vel_x = -5.0
             # yaw = -10.0
             rot_z = -1.0
             torques = -0.5
@@ -235,55 +252,72 @@ class GPRJumpJackCfg( LeggedRobotCfg ):
             feet_ori_contact = -50.0
             feet_air_time = 10.0
             stumble = -100.0
-            contact_velo = -10.
+            contact_velo = -10.0
             hand_vel_w = -0.1
 
-        only_positive_rewards = False # if true negative total rewards are clipped at zero (avoids early termination problems)
-        tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
-        soft_dof_pos_limit = 0.85 # percentage of urdf limits, values above this limit are penalized
+        only_positive_rewards = False  # if true negative total rewards are clipped at zero (avoids early termination problems)
+        tracking_sigma = 0.25  # tracking reward = exp(-error^2/sigma)
+        soft_dof_pos_limit = 0.85  # percentage of urdf limits, values above this limit are penalized
         soft_dof_vel_limit = 0.8
         soft_torque_limit = 0.8
-        max_contact_force = 550. # [N]
+        max_contact_force = 550.0  # [N]
 
         class curiosity:
             obs_dim = 29
             hidden_sizes_hash = [32]
             pred_dim = 16
-            obs_lb = [-0.5,-0.5,0.7] + [-0.5,-0.5,-0.5,0.7] + [-0.5,-0.5,-0.5,-1.0,-1.0,-1.0] + [-0.5,-0.5,0.1]*2 + [-0.5,-1.,0.5]*2 + [0.]*4
-            obs_ub = [0.5 , 0.5,1.2] + [0.5, 0.5, 0.5, 1.0] + [ 0.5, 0.5, 0.5, 1.0, 1.0, 1.0] + [0.5, 0.5,0.25]*2 + [ 0.8, 1.,2.0]*2 + [1.]*4
-            
+            obs_lb = (
+                [-0.5, -0.5, 0.7]
+                + [-0.5, -0.5, -0.5, 0.7]
+                + [-0.5, -0.5, -0.5, -1.0, -1.0, -1.0]
+                + [-0.5, -0.5, 0.1] * 2
+                + [-0.5, -1.0, 0.5] * 2
+                + [0.0] * 4
+            )
+            obs_ub = (
+                [0.5, 0.5, 1.2]
+                + [0.5, 0.5, 0.5, 1.0]
+                + [0.5, 0.5, 0.5, 1.0, 1.0, 1.0]
+                + [0.5, 0.5, 0.25] * 2
+                + [0.8, 1.0, 2.0] * 2
+                + [1.0] * 4
+            )
+
     class task:
         x_range = 0.14
         y_side = 0.14
         y_stance = 0.28
         y_tol = 0.1
         num_seq = 10
+
     class normalization:
-        class obs_scales: # no normalization for nows
-            lin_vel = 1.0 # 2.0
-            ang_vel = 1.0 # 0.25
-            dof_pos = 1.0 # 1.0
-            dof_vel = 1.0 # 0.05
-            height_measurements = 1.0 # 5.0
+        class obs_scales:  # no normalization for nows
+            lin_vel = 1.0  # 2.0
+            ang_vel = 1.0  # 0.25
+            dof_pos = 1.0  # 1.0
+            dof_vel = 1.0  # 0.05
+            height_measurements = 1.0  # 5.0
             body_pos = 1.0
             body_lin_vel = 1.0
             body_rot = 1.0
             delta_base_pos = 1.0
             delta_heading = 1.0
-        clip_observations = 100.
-        clip_actions = 100.
-        
-class GPRJumpJackCfgPPO( LeggedRobotCfgPPO ):
-    class algorithm( LeggedRobotCfgPPO.algorithm ):
+
+        clip_observations = 100.0
+        clip_actions = 100.0
+
+
+class GPRJumpJackCfgPPO(LeggedRobotCfgPPO):
+    class algorithm(LeggedRobotCfgPPO.algorithm):
         class_name = "PPO_SYM"
         # class_name = "PPO"
         entropy_coef = 0.001
-    class runner( LeggedRobotCfgPPO.runner ):
-        run_name = ''
-        experiment_name = 'gpr:jjack'
+
+    class runner(LeggedRobotCfgPPO.runner):
+        run_name = ""
+        experiment_name = "gpr:jjack"
         max_iterations = 100000
-        
-    class policy ( LeggedRobotCfgPPO.policy ):
+
+    class policy(LeggedRobotCfgPPO.policy):
         actor_hidden_dims = [512, 256, 128]
         critic_hidden_dims = [512, 256, 128]
-  

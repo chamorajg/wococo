@@ -1,8 +1,11 @@
 import numpy as np
-from isaacgym import gymtorch, gymapi, gymutil
+
+from isaacgym import gymapi, gymtorch, gymutil
+
 
 class SingleLine(gymutil.LineGeometry):
     "many thanks to Dr. Fan Shi the great coder"
+
     def __init__(self, x=0.0, y=0.0, z=0.5, pose=None, c=None):
         verts = np.empty((3, 2), gymapi.Vec3.dtype)
         verts[0][0] = (0, 0, 0)
@@ -15,7 +18,8 @@ class SingleLine(gymutil.LineGeometry):
 
         colors = np.empty(1, gymapi.Vec3.dtype)
         colors[0] = (1.0, 0.0, 0.0)
-        if c: colors[0] = c
+        if c:
+            colors[0] = c
         self._colors = colors
 
     def vertices(self):
